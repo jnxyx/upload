@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>myUpload</title>
+    <style type="text/css">
+    a {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        background: #f9cccc;
+        border-radius: 5px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    a:hover {
+        background: #f3d6d6;
+    }
+    
+    a input[type="file"] {
+        position: absolute;
+        right: 0;
+        top: 0;
+        /*width: 99px;
+        height: 99px;*/
+        font-size: 99px;
+        opacity: 0;
+        outline: none;
+        filter: alpha(opacity=0);
+    }
+    .upload-drop{
+    	width: 500px;
+    	height: 100px;
+    	background-color: #f9cccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="">
+            <input type="file" id="myUpload" name="myUpload" value=''>
+        </a>
+        <a href="">
+            <input type="file" id="myUpload01" name="myUpload01" value=''>
+        </a>
+        <div class="upload-drop">
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="myUpload.js"></script>
+<script type="text/javascript">
+document.getElementById('myUpload').onchange = function() {
+
+    myUpload({
+        element: document.getElementById('myUpload'),
+        url: '/myUpload.php/upload',
+        success: function(results) {
+            console.log(results);
+        },
+        error: function(results) {
+            console.log(results);
+        },
+        progress: function(results) {
+            console.log(results);
+        }
+    });
+}
+document.getElementById('myUpload').onclose = function() {
+    console.log('onclose');
+}
+document.getElementById('myUpload').oncancel = function() {
+    console.log('oncancel');
+}
+document.getElementById('myUpload').onblur = function() {
+    console.log('onblur');
+}
+document.getElementsByClassName('upload-drop')[0].ondragover = function(e){
+	e.preventDefault();
+	// console.log(arguments);
+}
+document.getElementsByClassName('upload-drop')[0].ondragleave = function(e){
+	e.preventDefault();
+	console.log(arguments);
+}
+document.getElementsByClassName('upload-drop')[0].ondrop = function(e){
+	e.preventDefault();
+	console.log(e.dataTransfer.files[0].name);
+}
+</script>
+
+</html>
