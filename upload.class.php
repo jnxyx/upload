@@ -46,7 +46,7 @@ class FileUpload{
         $path .= $this -> newFileName;
         // var_dump($path);
         if (@move_uploaded_file( $this -> tmpFileName , $path )) {
-          return $path;
+          return 'http://' . $_SERVER['HTTP_HOST'] . '/upload' . '/' . $path;
         }else{
           return false;
         }

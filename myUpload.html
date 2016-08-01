@@ -14,6 +14,7 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
+        margin: 5px;
     }
     
     a:hover {
@@ -31,65 +32,75 @@
         outline: none;
         filter: alpha(opacity=0);
     }
-    .upload-drop{
-    	width: 500px;
-    	height: 100px;
-    	background-color: #f9cccc;
+    
+    .upload-drop {
+        width: 500px;
+        height: 100px;
+        background-color: #f9cccc;
+        position: relative;
+    }
+    
+    .upload-drop.drag {
+        background-color: #f3d6d6;
+    }
+    
+    a.container img {
+        width: 100%;
+        height: 100%;
     }
     </style>
 </head>
 
 <body>
     <div>
-        <a href="">
+        <a href="javascript:void(0)">
             <input type="file" id="myUpload" name="myUpload" value=''>
         </a>
-        <a href="">
-            <input type="file" id="myUpload01" name="myUpload01" value=''>
-        </a>
+        <div id="uploadContainer">
+            <!-- <a class="container" href=""><img src="http://my.com/upload/upload/20160729083006_106.png" />
+            </a> -->
+        </div>
         <div class="upload-drop">
-
         </div>
     </div>
 </body>
 <script type="text/javascript" src="myUpload.js"></script>
 <script type="text/javascript">
-document.getElementById('myUpload').onchange = function() {
-
-    myUpload({
-        element: document.getElementById('myUpload'),
-        url: '/upload/myUpload.php',
-        success: function(results) {
-            console.log(results);
-        },
-        error: function(results) {
-            console.log(results);
-        },
-        progress: function(results) {
-            console.log(results);
+var upload = myUpload({
+    element: getId('myUpload'),
+    dragElement: getClass('upload-drop')[0],
+    dragClass: 'drag',
+    uploadContainer: getId('uploadContainer'),
+    uploadTemp: '<a class="container" href="javascript:void(0)"><img src="{src}" /></a>',
+    uploadTempRep: '{src}',
+    url: '/upload/myUpload.php',
+    success: function(results) {
+        if (results.data.length) {
+            for (var i = 0; i < results.data.length; i++) {
+                var item = results.data[i];
+                var html = '';
+                html += '<a class="container" href="javascript:void(0)">';
+                html += '<img src="' + item + '" /> ';
+                html += '</a>';
+                getId('uploadContainer').innerHTML += html;
+            }
         }
-    });
+        console.log(results);
+    },
+    error: function(results) {
+        console.log(results);
+    },
+    progress: function(results) {
+        console.log(results);
+    }
+});
+
+function getId(id) {
+    return document.getElementById(id);
 }
-document.getElementById('myUpload').onclose = function() {
-    console.log('onclose');
-}
-document.getElementById('myUpload').oncancel = function() {
-    console.log('oncancel');
-}
-document.getElementById('myUpload').onblur = function() {
-    console.log('onblur');
-}
-document.getElementsByClassName('upload-drop')[0].ondragover = function(e){
-	e.preventDefault();
-	// console.log(arguments);
-}
-document.getElementsByClassName('upload-drop')[0].ondragleave = function(e){
-	e.preventDefault();
-	console.log(arguments);
-}
-document.getElementsByClassName('upload-drop')[0].ondrop = function(e){
-	e.preventDefault();
-	console.log(e.dataTransfer.files[0].name);
+
+function getClass(className) {
+    return document.getElementsByClassName(className);
 }
 </script>
 
