@@ -14,7 +14,12 @@
 使用插件本身很简单，你需要初始化插件对象，传入操作参数即可。初始化方法如下：
 
 ```bash
-var upload = myUpload(options)
+var upload = new myUpload(options);
+```
+或者直接：
+
+```bash
+var upload = myUpload(options);
 ```
 
 其中options为对象数据类型，您可以写入对象的操作参数。
@@ -49,7 +54,7 @@ options = {
 	 ,
 	  
 	 files            //当前所有文件（函数)[选填] --- 待开发
-}
+};
 ```
 
 更多参数详见插件代码，初始化的对象提供了你对上传对象可操作的接口。
