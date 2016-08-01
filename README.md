@@ -22,19 +22,31 @@ var upload = myUpload(options)
 ```bash
 options = {
 	 element          //上传标签对象       [必填]
+	 ,
 	 url              //上传地址           [必填]
+	 ,
 	 success          //上传成功回调       [选填]
+	 ,
 	 error            //上传失败回调       [选填]
+	 ,
 	 progress         //上传进度回调       [选填]
+	 ,
 	 dragElement      //拖拽容器对象       [选填]
+	 ,
 	 dragClass        //拖拽样式           [选填]
+	 ,
 	  
 	 uploadContainer  //上传回调容器       [选填]
+	 ,
 	 uploadTemp       //上传模板           [选填]
+	 ,
 	 uploadTempRep    //上传模板替换规则   [选填] --- 待开发
+	 ,
 	 
 	 ext              //允许上传文件格式   [选填] --- 待开发
+	 ,
 	 size             //允许上传文件大小   [选填] --- 待开发
+	 ,
 	  
 	 files            //当前所有文件（函数)[选填] --- 待开发
 }
