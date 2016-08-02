@@ -222,3 +222,4 @@ myUpload.prototype = {
     }
 
 }
+
