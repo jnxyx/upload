@@ -21,7 +21,6 @@
   "scripts": {
     "build": "npm install && gulp",
     "start": "gulp watch",
-    "test": "gulp && gulp test",
-    "precommit": "gulp precommit_lint"
+    "test": "gulp && gulp test"
   }
 }

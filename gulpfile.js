@@ -5,11 +5,11 @@ var rename = require('gulp-rename');
 
 //压缩js文件
 gulp.task('minify-js', function() {
-	gulp.src('src/*.js') // 要压缩的js文件
+	gulp.src('src/myUpload.js') // 要压缩的js文件
 		//.pipe(concat('all.js'))
 		.pipe(uglify()) //使用uglify进行压缩
-		.pipe(gulp.dest('dest')) //压缩后的路径
-        .pipe(rename('myUpload.min.js'));
+        .pipe(rename('myUpload.min.js'))
+		.pipe(gulp.dest('dest')); //压缩后的路径
 });
 
 //指定入口的任务
