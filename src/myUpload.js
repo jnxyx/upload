@@ -227,4 +227,6 @@
         }
 
     }
+
+    global.myUpload = myUpload;
 }).call(this);
