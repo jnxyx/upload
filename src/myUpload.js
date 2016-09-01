@@ -14,8 +14,8 @@
  * options.uploadTemp       上传模板           [选填]
  * options.uploadTempRep    上传模板替换规则   [选填] --- 待开发
  * 
- * options.ext              允许上传文件格式   [选填] --- 待开发
- * options.size             允许上传文件大小   [选填] --- 待开发
+ * options.ext              允许上传文件格式   [选填] 
+ * options.size             允许上传文件大小   [选填] 
  * 
  * options.files            当前所有文件（函数)[选填] --- 待开发
  *
@@ -239,8 +239,15 @@
         validateExt: function(file) {
             var self = this,
                 ext = '.' + file.name.split('.')[file.name.split('.').length - 1],
-                limitExt = self.options.ext;
-            
+                limitExt = self.options.ext.split(',');
+
+            for (var i = 0; i < limitExt.length; i++) {
+                limitExt[i].replace(/( )/g, '');
+            }
+
+            if (limitExt.indexOf(ext) == -1) {
+                return false;
+            }
 
             return true;
         },
