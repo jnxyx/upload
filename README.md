@@ -45,8 +45,6 @@ options = {
 	 ,
 	 uploadTemp       //上传模板           [选填]
 	 ,
-	 uploadTempRep    //上传模板替换规则   [选填] --- 待开发
-	 ,
 	 
 	 ext              //允许上传文件格式   [选填] --- 待开发
 	 ,

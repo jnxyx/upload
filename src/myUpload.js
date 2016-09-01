@@ -12,7 +12,6 @@
  * 
  * options.uploadContainer  上传回调容器       [选填]
  * options.uploadTemp       上传模板           [选填]
- * options.uploadTempRep    上传模板替换规则   [选填] --- 待开发
  * 
  * options.ext              允许上传文件格式   [选填] 
  * options.size             允许上传文件大小   [选填] 
@@ -195,7 +194,7 @@
                     return false;
                 }
             }
-            console.log(file);
+
             return true;
         },
 
