@@ -136,8 +136,8 @@
 
             if (!self.validateFile(file)) {
                 if (self.validateInfo) {
-                    if (self.validateCallBack) {
-                        self.validateCallBack(self.validateInfo);
+                    if (self.options.validateCallBack) {
+                        self.options.validateCallBack(self.validateInfo);
                     } else {
                         alert(self.validateInfo);
                     }

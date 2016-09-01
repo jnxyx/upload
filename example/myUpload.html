@@ -74,6 +74,9 @@ var upload = myUpload({
     uploadTemp: '<a class="container" href="javascript:void(0)"><img src="{src}" /></a>',
     size: '92kb',
     ext: '.jpg',
+    validateCallBack: function(info) {
+        console.log(info);
+    },
     url: '/upload/myUpload.php',
     // success: function(results) {
     //     if (results.data.length) {
