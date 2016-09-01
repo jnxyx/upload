@@ -15,6 +15,7 @@
  * 
  * options.ext              允许上传文件格式   [选填] 
  * options.size             允许上传文件大小   [选填] 
+ * options.validateCallBack 上传文件验证失败回调   [选填]
  * 
  * options.files            当前所有文件（函数)[选填] --- 待开发
  *
