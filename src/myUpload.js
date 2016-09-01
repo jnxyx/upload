@@ -40,8 +40,9 @@
     myUpload.prototype = {
         init: function(options) {
             var self = this;
-            if (!self.validateOptions(options)) {
-                throw '参数错误';
+
+            if (!options.element || !options.url) {
+                throw '缺少必要参数！';
             }
 
             self.xhr = new XMLHttpRequest();
@@ -129,13 +130,27 @@
 
         //向服务器发送文件
         sendFile: function(file) {
+
             var self = this;
+            file = file || null;
+
+            if (!self.validateFile(file)) {
+                if (self.validateInfo) {
+                    if (self.validateCallBack) {
+                        self.validateCallBack(self.validateInfo);
+                    } else {
+                        alert(self.validateInfo);
+                    }
+                }
+                return;
+            }
+
             var filename = 'files_';
 
             if (file) {
                 var filesArray = [file];
             } else {
-                var filesArray = this.element.files;
+                var filesArray = self.element.files;
             }
 
             var formData = self.formData;
@@ -167,12 +182,67 @@
             this.send();
         },
 
-        validateOptions: function(options) {
-            if (!options.element || !options.url) {
-                return false;
-            } else {
-                return true;
+        validateFile: function(file) {
+            var self = this;
+            file = file ? file : self.element.files[0];
+            if (file) {
+                if (self.options.size && !self.validateSize(file)) {
+                    self.validateInfo = '文件大小不符合要求！';
+                    return false;
+                }
+                if (self.options.ext && !self.validateExt(file)) {
+                    self.validateInfo = '文件格式不符合要求！';
+                    return false;
+                }
             }
+            console.log(file);
+            return true;
+        },
+
+        validateSize: function(file) {
+            var self = this,
+                size = file.size,
+                limitSize = self.options.size.toLowerCase(),
+                rules = /[gmkb]b?/.exec(limitSize);
+
+            if (rules.length === 0) {
+                return false;
+            }
+
+            var unit = rules[0].charAt(0);
+
+            limitSize = parseInt(limitSize.split(unit)[0]);
+
+            if (isNaN(limitSize)) {
+                return false;
+            }
+
+            switch (unit) {
+                case 'g':
+                    limitSize *= 1024 * 1024 * 1024;
+                    break;
+                case 'm':
+                    limitSize *= 1024 * 1024;
+                    break;
+                case 'k':
+                    limitSize *= 1024;
+                    break;
+            }
+
+            if (limitSize < size) {
+                return false;
+            }
+
+            return true;
+        },
+
+        validateExt: function(file) {
+            var self = this,
+                ext = '.' + file.name.split('.')[file.name.split('.').length - 1],
+                limitExt = self.options.ext;
+            
+
+            return true;
         },
 
         send: function() {

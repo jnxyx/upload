@@ -73,6 +73,8 @@ var upload = myUpload({
     uploadContainer: getId('uploadContainer'),
     uploadTemp: '<a class="container" href="javascript:void(0)"><img src="{src}" /></a>',
     uploadTempRep: '{src}',
+    size: '12kb',
+    ext: '.jpg,.png',
     url: '/upload/myUpload.php',
     success: function(results) {
         if (results.data.length) {
