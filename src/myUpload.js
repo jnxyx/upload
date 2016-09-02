@@ -264,6 +264,7 @@
         success: function(e) {
             var response = e.target.response;
             var results = JSON.parse(response);
+
             if (this.options.success) {
                 this.options.success(results);
             } else if (this.options.uploadContainer) {
@@ -278,6 +279,7 @@
                     }
                 }
             }
+            
         },
 
         error: function(e) {
