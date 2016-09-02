@@ -29,6 +29,7 @@
     var global = this;
 
     function myUpload(options) {
+        
         if (!(this instanceof myUpload)) {
             return new myUpload(options);
         }
@@ -39,6 +40,7 @@
 
     myUpload.prototype = {
         init: function(options) {
+
             var self = this;
 
             if (!options.element || !options.url) {
@@ -65,6 +67,7 @@
         },
 
         initAjaxEvent: function() {
+
             var self = this;
             var xhr = self.xhr;
 
@@ -86,10 +89,13 @@
                 // console.log(self.xhr.readyState);
                 // console.log(self.xhr.status);
             });
+
         },
 
         initEvent: function() {
+
             var self = this;
+
             if (self.options.dragElement) {
 
                 var dragElement = self.options.dragElement;
@@ -126,6 +132,7 @@
                     self.sendFile();
                 });
             }
+
         },
 
         //向服务器发送文件
@@ -135,6 +142,7 @@
             file = file || null;
 
             if (!self.validateFile(file)) {
+
                 if (self.validateInfo) {
                     if (self.options.validateCallBack) {
                         self.options.validateCallBack(self.validateInfo);
@@ -142,7 +150,9 @@
                         alert(self.validateInfo);
                     }
                 }
+
                 return;
+
             }
 
             var filename = 'files_';
@@ -157,23 +167,30 @@
 
             //chrome支持，firefox不支持
             if (formData.forEach) {
+
                 formData.forEach(function(file, key) {
                     if (formData.has(key)) {
                         formData.delete(key);
                     }
                 });
+
             } else {
+
                 for (var j in self.indexContainer) {
+
                     var item = self.indexContainer[j];
                     var key = filename + item;
+
                     if (formData.has(key)) {
                         formData.delete(key);
                     }
                 }
+
                 self.indexContainer = [];
             }
 
             for (var i = 0; i < filesArray.length; i++) {
+
                 self.indexContainer.push(self.index);
                 formData.append(filename + self.index, filesArray[0]);
                 self.index++;
@@ -183,8 +200,10 @@
         },
 
         validateFile: function(file) {
+
             var self = this;
             file = file ? file : self.element.files[0];
+
             if (file) {
                 if (self.options.size && !self.validateSize(file)) {
                     self.validateInfo = '文件大小不符合要求！';
@@ -200,6 +219,7 @@
         },
 
         validateSize: function(file) {
+
             var self = this,
                 size = file.size,
                 limitSize = self.options.size.toLowerCase(),
@@ -237,6 +257,7 @@
         },
 
         validateExt: function(file) {
+
             var self = this,
                 ext = '.' + file.name.split('.')[file.name.split('.').length - 1],
                 limitExt = self.options.ext.split(',');
@@ -266,15 +287,24 @@
             var results = JSON.parse(response);
 
             if (this.options.success) {
+
                 this.options.success(results);
+
             } else if (this.options.uploadContainer) {
+
                 var uploadContainer = this.options.uploadContainer;
+
                 if (results.data.length) {
+
                     for (var i = 0; i < results.data.length; i++) {
+
                         var item = results.data[i];
+
                         if (this.options.uploadTemp) {
+
                             var html = this.options.uploadTemp.replace(/(\{src\})/, item);
                             uploadContainer.innerHTML += html;
+
                         }
                     }
                 }
@@ -289,11 +319,15 @@
         },
 
         progress: function(e) {
+
             var percent = 100 * e.loaded / e.total;
             percent = percent.toFixed(2);
             percent += '%';
+
             if (this.options.progress) {
+
                 this.options.progress(percent);
+
             }
         },
 
