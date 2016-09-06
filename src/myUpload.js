@@ -30,7 +30,7 @@
     var global = this;
 
     function myUpload(options) {
-        
+
         if (!(this instanceof myUpload)) {
             return new myUpload(options);
         }
@@ -310,7 +310,7 @@
                     }
                 }
             }
-            
+
         },
 
         error: function(e) {
@@ -338,6 +338,10 @@
 
         getClass: function(className) {
             return global.document.getElementsByClassName(className);
+        },
+
+        getElements: function(selectors) {
+            return global.document.querySelector(selectors);
         }
 
     }
