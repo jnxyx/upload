@@ -18,6 +18,10 @@
     "gulp-concat": "2.6.0",
     "gulp-rename": "1.2.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jnxyx/upload.git"
+  },
   "scripts": {
     "build": "npm install && gulp",
     "start": "gulp watch",
