@@ -4,14 +4,14 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 
 gulp.task('minify-js', function() {
-	gulp.src('src/myUpload.js') 
+	gulp.src('src/upload.js') 
 		//合并
 		//.pipe(concat('all.js'))
 		//压缩
 		.pipe(uglify()) 
-        .pipe(rename('myUpload.min.js'))
+        .pipe(rename('upload.min.js'))
 		//路径
-		.pipe(gulp.dest('dest')); 
+		.pipe(gulp.dest('dist')); 
 });
 
 gulp.task('entrance', ['minify-js', 'watch'], function() {
