@@ -5,12 +5,9 @@ var rename = require('gulp-rename');
 
 gulp.task('minify-js', function() {
 	gulp.src('src/upload.js') 
-		//合并
 		//.pipe(concat('all.js'))
-		//压缩
 		.pipe(uglify()) 
         .pipe(rename('upload.min.js'))
-		//路径
 		.pipe(gulp.dest('dist')); 
 });
 
@@ -27,5 +24,5 @@ gulp.task('default', ['minify-js', 'watch'], function() {
 
 //监控
 gulp.task('watch', function() {
-	gulp.watch('hello.js', ['minify-js']);
+	gulp.watch('upload.js', ['minify-js']);
 });
