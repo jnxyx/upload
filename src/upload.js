@@ -1,5 +1,5 @@
 /**
- * [myUpload description] created by xyx
+ * [Upload description] created by xyx
  * 支持拖拽上传
  * @param  {[type]} options [description]
  * options.element          上传标签对象       [必填]
@@ -29,17 +29,17 @@
 
     var global = this;
 
-    function myUpload(options) {
+    function upload(options) {
 
-        if (!(this instanceof myUpload)) {
-            return new myUpload(options);
+        if (!(this instanceof upload)) {
+            return new upload(options);
         }
         this.init(options);
 
         return this;
     }
 
-    var tools = myUpload.tools = {};
+    var tools = upload.tools = {};
 
     var each = tools.each = function(loopable, callback, self) {
         
@@ -101,7 +101,7 @@
             return extend.apply(null, args);
         };
 
-    myUpload.prototype = {
+    upload.prototype = {
         init: function(options) {
 
             var self = this;
@@ -410,5 +410,5 @@
 
     }
 
-    global.myUpload = myUpload;
+    global.Upload = Upload;
 }).call(this);
