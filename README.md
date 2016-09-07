@@ -14,12 +14,12 @@
 使用插件本身很简单，你需要初始化插件对象，传入操作参数即可。初始化方法如下：
 
 ```bash
-var upload = new myUpload(options);
+var upload = new Upload(options);
 ```
 或者直接：
 
 ```bash
-var upload = myUpload(options);
+var upload = Upload(options);
 ```
 
 其中options为对象数据类型，您可以写入对象的操作参数。
