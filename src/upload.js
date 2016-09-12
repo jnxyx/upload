@@ -412,7 +412,9 @@
                 display: 'inline-block',
                 width: '100px',
                 height: '100px',
-                background: '#f9cccc',
+                border: '1px solid #eeeeee',
+                backgroundImage: 'url("../img/add.jpg")',
+                backgroundSize: 'cover',
                 borderRadius: '5px',
                 position: 'relative',
                 overflow: 'hidden',
@@ -421,15 +423,11 @@
             });
 
             uploadElement.onmouseover = function() {
-                self.css(uploadElement, {
-                    background: '#f3d6d6'
-                });
+                self.css(uploadElement, {});
             };
 
             uploadElement.onmouseout = function() {
-                self.css(uploadElement, {
-                    background: '#f9cccc'
-                });
+                self.css(uploadElement, {});
             };
 
             var uploadInput = global.document.createElement('input');
@@ -470,7 +468,7 @@
                         display: 'inline-block',
                         width: '100px',
                         height: '100px',
-                        background: '#f9cccc',
+                        border: '1px solid #eeeeee',
                         borderRadius: '5px',
                         position: 'relative',
                         overflow: 'hidden',
@@ -480,7 +478,11 @@
 
                     var imgElement = global.document.createElement('img');
 
-                    imgElement.setAttribute('src', item);
+                    imgElement.setAttribute('src', '../img/loading.gif');
+
+                    self.preLoadImage(item, function() {
+                        imgElement.setAttribute('src', item);
+                    });
 
                     self.css(imgElement, {
                         width: '100%',
@@ -494,6 +496,21 @@
                 }
             }
 
+        },
+
+        preLoadImage: function(imgUrl, callback) {
+            var imgElement = global.document.createElement('img');
+
+            imgElement.src = imgUrl;
+
+            imgElement.style.display = 'none';
+
+            global.document.body.appendChild(imgElement);
+
+            imgElement.onload = function() {
+                callback();
+                global.document.body.removeChild(imgElement);
+            };
         }
 
     }
