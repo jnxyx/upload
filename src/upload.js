@@ -423,11 +423,17 @@
             });
 
             uploadElement.onmouseover = function() {
-                self.css(uploadElement, {});
+                self.css(uploadElement, {
+                    opacity: '0.8',
+                    filter: 'alpha(opacity=80)'
+                });
             };
 
             uploadElement.onmouseout = function() {
-                self.css(uploadElement, {});
+                self.css(uploadElement, {
+                    opacity: '1',
+                    filter: 'alpha(opacity=100)'
+                });
             };
 
             var uploadInput = global.document.createElement('input');
