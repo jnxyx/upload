@@ -152,7 +152,7 @@
             self.options = preExtend(self.options, options);
 
             if (!options.id || !options.url) {
-                throw '缺少必要参数！';
+                throw new Error('缺少必要参数！');
             }
 
             self.xhr = new XMLHttpRequest();
