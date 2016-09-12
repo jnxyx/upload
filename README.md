@@ -26,7 +26,7 @@ var upload = Upload(options);
 
 <!-- ```bash
 options = {
-	 element          //上传标签对象       [必填]
+	 id               //上传标签对象 ID    [必填]
 	 ,
 	 url              //上传地址           [必填]
 	 ,
@@ -40,20 +40,12 @@ options = {
 	 ,
 	 dragClass        //拖拽样式           [选填]
 	 ,
-	  
-	 uploadContainer  //上传回调容器       [选填]
-	 ,
-	 uploadTemp       //上传模板           [选填]
-	 ,
 	 
 	 ext              //允许上传文件格式   [选填] 
 	 ,
 	 size             //允许上传文件大小   [选填] 
 	 ,
 	 validateCallBack //上传文件验证失败回调[选填] 
-	 ,
-	 
-	 files            //当前所有文件（函数)[选填] --- 待开发
 };
 ``` -->
 
