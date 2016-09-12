@@ -108,15 +108,17 @@
 
             options = cloneObject(options);
 
-            if (!options.element || !options.url) {
+            if (!options.id || !options.url) {
                 throw '缺少必要参数！';
             }
 
             self.xhr = new XMLHttpRequest();
             self.formData = new FormData();
-            self.element = options.element;
             self.url = options.url;
             self.options = options;
+
+            //初始化上传控件
+            self.renderUploadElement();
 
             self.index = 0;
             self.indexContainer = [];
@@ -351,28 +353,12 @@
             var response = e.target.response;
             var results = JSON.parse(response);
 
+            this.renderSuccessCallback(results);
+
             if (this.options.success) {
 
                 this.options.success(results);
 
-            } else if (this.options.uploadContainer) {
-
-                var uploadContainer = this.options.uploadContainer;
-
-                if (results.data.length) {
-
-                    for (var i = 0; i < results.data.length; i++) {
-
-                        var item = results.data[i];
-
-                        if (this.options.uploadTemp) {
-
-                            var html = this.options.uploadTemp.replace(/(\{src\})/, item);
-                            uploadContainer.innerHTML += html;
-
-                        }
-                    }
-                }
             }
 
         },
@@ -410,12 +396,19 @@
 
         css: function(el, styleObject) {
             extend(el.style, styleObject);
+
+            return el;
         },
 
         renderUploadElement: function() {
+
+            var self = this;
+
+            self.options.uploadContainer = self.getId(self.options.id);
+
             var uploadElement = global.document.createElement('a');
 
-            this.css(uploadElement, {
+            self.css(uploadElement, {
                 display: 'inline-block',
                 width: '100px',
                 height: '100px',
@@ -427,29 +420,84 @@
                 margin: '5px'
             });
 
-            var uploadInput = global.document.createElement('input[type="file"]');
+            uploadElement.onmouseover = function() {
+                self.css(uploadElement, {
+                    background: '#f3d6d6'
+                });
+            };
+
+            uploadElement.onmouseout = function() {
+                self.css(uploadElement, {
+                    background: '#f9cccc'
+                });
+            };
+
+            var uploadInput = global.document.createElement('input');
 
             uploadInput.setAttribute('type', 'file');
 
-            this.css(uploadInput, {
+            self.css(uploadInput, {
                 position: 'absolute',
                 right: '0',
                 top: '0',
                 fontSize: '99px',
                 opacity: '0',
                 outline: 'none',
-                filter: 'alpha(opacity=0)',
+                cursor: 'pointer',
+                filter: 'alpha(opacity=0)'
             });
 
             uploadElement.appendChild(uploadInput);
 
-            this.options.uploadContainer.appendChild(uploadElement);
+            self.options.uploadContainer.appendChild(uploadElement);
 
-            this.element = this.options.element = uploadElement;
+            self.element = self.options.element = uploadInput;
+        },
+
+        renderSuccessCallback: function(results) {
+
+            var self = this;
+
+            if (results.data.length) {
+
+                for (var i = 0; i < results.data.length; i++) {
+
+                    var item = results.data[i];
+
+                    var anchorElement = global.document.createElement('a');
+
+                    self.css(anchorElement, {
+                        display: 'inline-block',
+                        width: '100px',
+                        height: '100px',
+                        background: '#f9cccc',
+                        borderRadius: '5px',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        margin: '5px'
+                    });
+
+                    var imgElement = global.document.createElement('img');
+
+                    imgElement.setAttribute('src', item);
+
+                    self.css(imgElement, {
+                        width: '100%',
+                        height: '100%'
+                    });
+
+                    anchorElement.appendChild(imgElement);
+
+                    self.options.uploadContainer.insertBefore(anchorElement, self.element.parentNode);
+
+                }
+            }
+
         }
 
     }
 
 
-    global.Upload = Upload;
+    global.Upload = upload;
 }).call(this);
