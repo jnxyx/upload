@@ -10,7 +10,7 @@
  * options.dragElement      拖拽容器对象       [选填]
  * options.dragClass        拖拽样式           [选填]
  * 
- * options.uploadContainer  上传回调容器       [选填]
+ * options.uploadContainer  上传回调容器       [必填]
  * options.uploadTemp       上传模板           [选填]
  * 
  * options.ext              允许上传文件格式   [选填] 
@@ -42,7 +42,7 @@
     var tools = upload.tools = {};
 
     var each = tools.each = function(loopable, callback, self) {
-        
+
             //保存追加参数
             var additionalArgs = Array.prototype.slice.call(arguments, 3);
 
@@ -54,7 +54,7 @@
                     for (i = 0; i < loopable.length; i++) {
                         callback.apply(self, [loopable[i], i].concat(additionalArgs));
                     }
-                } 
+                }
                 //对象类型
                 else {
 
@@ -68,7 +68,7 @@
         cloneObject = tools.cloneObject = function(obj) {
 
             var objClone = {};
-            
+
             each(obj, function(value, key) {
                 if (obj.hasOwnProperty(key)) {
                     objClone[key] = value;
@@ -406,9 +406,50 @@
 
         getElements: function(selectors) {
             return global.document.querySelector(selectors);
+        },
+
+        css: function(el, styleObject) {
+            extend(el.style, styleObject);
+        },
+
+        renderUploadElement: function() {
+            var uploadElement = global.document.createElement('a');
+
+            this.css(uploadElement, {
+                display: 'inline-block',
+                width: '100px',
+                height: '100px',
+                background: '#f9cccc',
+                borderRadius: '5px',
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                margin: '5px'
+            });
+
+            var uploadInput = global.document.createElement('input[type="file"]');
+
+            uploadInput.setAttribute('type', 'file');
+
+            this.css(uploadInput, {
+                position: 'absolute',
+                right: '0',
+                top: '0',
+                fontSize: '99px',
+                opacity: '0',
+                outline: 'none',
+                filter: 'alpha(opacity=0)',
+            });
+
+            uploadElement.appendChild(uploadInput);
+
+            this.options.uploadContainer.appendChild(uploadElement);
+
+            this.element = this.options.element = uploadElement;
         }
 
     }
+
 
     global.Upload = Upload;
 }).call(this);
