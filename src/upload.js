@@ -22,7 +22,23 @@
  * 
  */
 ;
-(function() {
+(function(global, factory) {
+
+    if (typeof module === "object" && typeof module.exports === "object") {
+        // 模块导出
+        module.exports = global.document ?
+            factory.call(global) :
+            function(w) {
+                if (!w.document) {
+                    throw new Error("upload requires a window with a document");
+                }
+                return factory.call(global);
+            };
+    } else {
+        factory.call(global);
+    }
+
+})(this, function() {
 
     var global = this;
 
@@ -539,7 +555,15 @@
 
     }
 
+    //模块导出
+    if (typeof define === "function" && define.amd) {
+        define("upload", [], function() {
+            return upload;
+        });
+    }
 
     global.Upload = upload;
 
-}).call(this);
+    return upload;
+
+});
