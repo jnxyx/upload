@@ -90,6 +90,21 @@
             return base;
         },
 
+        inextend = tools.extend = function(base) {
+
+            each(Array.prototype.slice.call(arguments, 1), function(extensionObject) {
+
+                each(extensionObject, function(value, key) {
+
+                    if (extensionObject.hasOwnProperty(key) && base.hasOwnProperty(key)) {
+                        base[key] = value;
+                    }
+                });
+            });
+
+            return base;
+        },
+
         merge = tools.merge = function(base, master) {
 
             var args = Array.prototype.slice.call(arguments, 0);
@@ -105,6 +120,21 @@
 
             options = cloneObject(options);
 
+            self.options = {
+                id: '',
+                url: '',
+                success: '',
+                error: '',
+                progress: '',
+                dragElement: '',
+                dragClass: '',
+                ext: '',
+                size: '',
+                validateCallBack: ''
+            };
+
+            self.options = inextend(self.options, options);
+
             if (!options.id || !options.url) {
                 throw '缺少必要参数！';
             }
@@ -112,7 +142,6 @@
             self.xhr = new XMLHttpRequest();
             self.formData = new FormData();
             self.url = options.url;
-            self.options = options;
 
             //初始化上传控件
             self.renderUploadElement();
@@ -125,8 +154,6 @@
 
             //初始化元素事件
             self.initEvent();
-
-            // self.sendFile();
 
         },
 
