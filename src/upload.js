@@ -90,7 +90,7 @@
             return base;
         },
 
-        inextend = tools.extend = function(base) {
+        preExtend = tools.preExtend = function(base) {
 
             each(Array.prototype.slice.call(arguments, 1), function(extensionObject) {
 
@@ -133,7 +133,7 @@
                 validateCallBack: ''
             };
 
-            self.options = inextend(self.options, options);
+            self.options = preExtend(self.options, options);
 
             if (!options.id || !options.url) {
                 throw '缺少必要参数！';
@@ -541,4 +541,5 @@
 
 
     global.Upload = upload;
+
 }).call(this);
