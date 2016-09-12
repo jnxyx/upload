@@ -36,16 +36,6 @@ var upload = Upload({
     url: '/upload/myUpload.php',
     id: 'uploadContainer',
     success: function(results) {
-        if (results.data.length) {
-            for (var i = 0; i < results.data.length; i++) {
-                var item = results.data[i];
-                var html = '';
-                html += '<a class="container" href="javascript:void(0)">';
-                html += '<img src="' + item + '" /> ';
-                html += '</a>';
-                getId('uploadContainer').innerHTML += html;
-            }
-        }
         console.log(results);
     }
 });
