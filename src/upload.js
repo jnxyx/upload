@@ -498,19 +498,13 @@
 
         },
 
+        //图片预加载
         preLoadImage: function(imgUrl, callback) {
             var imgElement = global.document.createElement('img');
 
             imgElement.src = imgUrl;
 
-            imgElement.style.display = 'none';
-
-            global.document.body.appendChild(imgElement);
-
-            imgElement.onload = function() {
-                callback();
-                global.document.body.removeChild(imgElement);
-            };
+            imgElement.onload = callback;
         }
 
     }
