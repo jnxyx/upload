@@ -556,7 +556,7 @@
 
     }
 
-    //模块导出
+    //模块化处理导出
     if (typeof define === "function" && define.amd) {
         define("upload", [], function() {
             return upload;
