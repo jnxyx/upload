@@ -156,6 +156,8 @@
                 throw new Error('缺少必要参数！');
             }
 
+            self.files = [];
+
             self.xhr = new XMLHttpRequest();
             self.formData = new FormData();
             self.url = options.url;
@@ -424,9 +426,26 @@
         },
 
         cancle: function(e) {
+            console.log(this);
             console.log(e);
         },
 
+        getFiles: function() {
+            return this.files;
+        },
+
+        getOptionsLog: function(active, file) {
+            var self = this;
+
+            if (Object.prototype.toString.call(self.logArray) != '[object Array]') {
+                self.logArray = [];
+            }
+
+            self.logArray.push({
+                active: active,
+                file: file
+            });
+        },
 
         getId: function(id) {
             return global.document.getElementById(id);
@@ -535,6 +554,8 @@
                     self.preLoadImage(item, function() {
                         imgElement.setAttribute('src', item);
 
+                        self.files.push(item);
+
                         //添加删除操作
                         var cancleElement = global.document.createElement('div');
                         cancleElement.innerText = '删除';
@@ -556,8 +577,12 @@
                         anchorElement.appendChild(cancleElement);
 
                         cancleElement.onclick = function(e) {
+
                             self.options.uploadContainer.removeChild(anchorElement);
-                            self.cancle.call(anchorElement, e);
+
+                            self.files.splice(self.files.indexOf(item));
+
+                            self.cancle.call(self, anchorElement);
                         }
                     });
 
