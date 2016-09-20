@@ -145,7 +145,7 @@
                 progress: '',
                 dragElement: '',
                 dragClass: '',
-                ext: '',
+                ext: '.png,.jpg,.jpeg',
                 size: '',
                 validateCallBack: ''
             };
@@ -423,6 +423,11 @@
             }
         },
 
+        cancle: function(e) {
+            console.log(e);
+        },
+
+
         getId: function(id) {
             return global.document.getElementById(id);
         },
@@ -509,7 +514,7 @@
 
                     var item = results.data[i];
 
-                    var anchorElement = global.document.createElement('a');
+                    var anchorElement = global.document.createElement('div');
 
                     self.css(anchorElement, {
                         display: 'inline-block',
@@ -529,6 +534,31 @@
 
                     self.preLoadImage(item, function() {
                         imgElement.setAttribute('src', item);
+
+                        //添加删除操作
+                        var cancleElement = global.document.createElement('div');
+                        cancleElement.innerText = '删除';
+                        self.css(cancleElement, {
+                            width: '100%',
+                            height: '20px',
+                            position: 'absolute',
+                            left: '0',
+                            bottom: '0px',
+                            textAlign: 'center',
+                            backgroundColor: 'black',
+                            opacity: '0.5',
+                            color: 'white',
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            lineHeight: '20px'
+                        });
+
+                        anchorElement.appendChild(cancleElement);
+
+                        cancleElement.onclick = function(e) {
+                            self.options.uploadContainer.removeChild(anchorElement);
+                            self.cancle.call(anchorElement, e);
+                        }
                     });
 
                     self.css(imgElement, {
