@@ -15,7 +15,6 @@
     .upload-drop.drag {
         background-color: #f3d6d6;
     }
-
     </style>
 </head>
 
@@ -35,6 +34,7 @@ var upload = Upload({
     id: 'uploadContainer',
     dragElement: getClass('upload-drop')[0],
     dragClass: 'drag',
+    loadFiles: ['http://my.com/upload/upload/20160920045228_169.png'],
     // size: '92kb',
     // ext: '.jpg',
     validateCallBack: function(info) {

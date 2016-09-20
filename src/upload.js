@@ -140,6 +140,7 @@
             self.options = {
                 id: '',
                 url: '',
+                loadFiles: [],
                 success: '',
                 error: '',
                 progress: '',
@@ -158,6 +159,7 @@
 
             self.files = [];
 
+
             self.xhr = new XMLHttpRequest();
             self.formData = new FormData();
             self.url = options.url;
@@ -173,6 +175,13 @@
 
             //初始化元素事件
             self.initEvent();
+
+            //加载初始图片
+            if (self.options.loadFiles.length) {
+                self.renderSuccessCallback({
+                    data: self.options.loadFiles
+                }, 'load');
+            }
 
         },
 
@@ -426,15 +435,14 @@
         },
 
         cancle: function(e) {
-            console.log(this);
-            console.log(e);
+
         },
 
         getFiles: function() {
             return this.files;
         },
 
-        getOptionsLog: function(active, file) {
+        setOptionsLog: function(active, file) {
             var self = this;
 
             if (Object.prototype.toString.call(self.logArray) != '[object Array]') {
@@ -445,6 +453,10 @@
                 active: active,
                 file: file
             });
+        },
+
+        getOptionsLog: function() {
+            return this.logArray || [];
         },
 
         getId: function(id) {
@@ -523,7 +535,7 @@
             self.element = self.options.element = uploadInput;
         },
 
-        renderSuccessCallback: function(results) {
+        renderSuccessCallback: function(results, isLoad) {
 
             var self = this;
 
@@ -555,6 +567,11 @@
                         imgElement.setAttribute('src', item);
 
                         self.files.push(item);
+                        if (isLoad) {
+                            self.setOptionsLog('load', item);
+                        } else {
+                            self.setOptionsLog('add', item);
+                        }
 
                         //添加删除操作
                         var cancleElement = global.document.createElement('div');
@@ -580,7 +597,8 @@
 
                             self.options.uploadContainer.removeChild(anchorElement);
 
-                            self.files.splice(self.files.indexOf(item));
+                            self.files.splice(self.files.indexOf(item), 1);
+                            self.setOptionsLog('cancle', item);
 
                             self.cancle.call(self, anchorElement);
                         }
