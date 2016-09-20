@@ -34,7 +34,7 @@ var upload = Upload({
     id: 'uploadContainer',
     dragElement: getClass('upload-drop')[0],
     dragClass: 'drag',
-    loadFiles: ['http://my.com/upload/upload/20160920045228_169.png'],
+    // loadFiles: ['http://my.com/upload/upload/20160920045228_169.png'],
     // size: '92kb',
     // ext: '.jpg',
     validateCallBack: function(info) {
@@ -61,6 +61,10 @@ var upload = Upload({
         console.log(results);
     }
 });
+
+// upload.getFiles();
+
+// upload.getOptionsLog();
 
 function getId(id) {
     return document.getElementById(id);
