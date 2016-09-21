@@ -16,7 +16,10 @@
     "gulp": "3.9.1",
     "gulp-uglify": "2.0.0",
     "gulp-concat": "2.6.0",
-    "gulp-rename": "1.2.2"
+    "gulp-rename": "1.2.2",
+    "gulp-streamify": "1.0.2",
+    "gulp-buffer": "0.0.2",
+    "vinyl-source-stream": "1.1.0"
   },
   "repository": {
     "type": "git",
