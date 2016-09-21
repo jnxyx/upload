@@ -1,1 +1,1 @@
-node --debug-brk gulpfile.js  
+node-inspector &
