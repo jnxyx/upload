@@ -16,4 +16,3 @@ Thumbs.db
 .settings/
 node_modules/
 upload/
-*.cmd
