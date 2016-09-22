@@ -15,4 +15,5 @@ Thumbs.db
 .project
 .settings/
 node_modules/
-_site/
+upload/
+*.cmd

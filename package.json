@@ -3,7 +3,7 @@
   "title": "upload",
   "description": "JavaScript library for Upload",
   "version": "1.0.0-pre",
-  "main": "dist/myUpload.js",
+  "main": "dist/upload.min.js",
   "keywords": [
     "upload",
     "javascript",
