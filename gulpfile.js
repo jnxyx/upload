@@ -36,6 +36,13 @@ function rewrite() {
 
         filesObject[ file.relative ] = text;
 
+		if( file.relative == filesArray[1] ||  file.relative == filesArray[2]  ){
+        	text = '';
+        }
+
+        if ( file.relative == filesArray[3]  ) {
+        	text = text.replace(/\/\*\*\{\{ body \}\}\*\*\//, filesObject[ filesArray[1] ]);
+        }	
 
         file.contents = new Buffer(text);
 
@@ -53,14 +60,14 @@ gulp.task('minify-js', function() {
     // var files = source('src/upload.js');
 
     gulp.src('src/upload.js').on('data', function(file) {
-        console.log(file.contents);
+        console.log( String( file.contents ) );
     });
 
     gulp.src('src/upload.main.js')
         .pipe(rewrite())
-        // .pipe(concat())
-        .pipe(uglify())
-        .pipe(rename('upload.min.js'))
+        .pipe(concat())
+        // .pipe(uglify())
+        .pipe(rename('upload.debug.js'))
         .pipe(gulp.dest('dist'));
 });
 
