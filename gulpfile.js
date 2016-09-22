@@ -7,12 +7,16 @@ var bufferf = require('gulp-buffer');
 var streamify = require('gulp-streamify');
 var Stream = require('stream');
 
-var filesArray = [ 
-	'upload.description.js' , 
-	'upload.main.js' , 
-	'upload.tools.js' , 
-	'upload.wrapper.js' 
-	];
+var 
+	// 文件对象组
+	filesObject = {},
+	// 文件组
+	filesArray = [ 
+		'upload.description.js' , 
+		'upload.main.js' , 
+		'upload.tools.js' , 
+		'upload.wrapper.js' 
+		];
 
 function rewrite() {
     var stream = new Stream.Transform({ objectMode: true });
@@ -30,6 +34,8 @@ function rewrite() {
         	text = text.replace(/\(\)\);$/, '');
         }
 
+        filesObject[ file.relative ] = text;
+
 
         file.contents = new Buffer(text);
 
@@ -39,6 +45,10 @@ function rewrite() {
     return stream;
 }
 
+function concatFile(){
+	// 文件联合
+}
+
 gulp.task('minify-js', function() {
     // var files = source('src/upload.js');
 
@@ -46,7 +56,7 @@ gulp.task('minify-js', function() {
         console.log(file.contents);
     });
 
-    gulp.src('src/upload.*.js')
+    gulp.src('src/upload.main.js')
         .pipe(rewrite())
         // .pipe(concat())
         .pipe(uglify())
