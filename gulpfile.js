@@ -14,7 +14,7 @@ var
 	filesArray = [ 
 		'upload.description.js' , 
 		'upload.main.js' , 
-		'upload.tools.js' , 
+		'upload.tool.js' , 
 		'upload.wrapper.js' 
 		];
 
@@ -30,17 +30,17 @@ function rewrite() {
         var text = map[file.relative];
 
         if( file.relative == filesArray[1] ){
-        	text = map[file.relative].replace(/^\(/, '');
-        	text = text.replace(/\(\)\);$/, '');
+        	text = map[file.relative].replace(/^(\(function\(\) \{)/, '');
+        	text = text.replace(/\}\(\)\);$/, '');
         }
 
         filesObject[ file.relative ] = text;
 
 		if( file.relative == filesArray[1] ||  file.relative == filesArray[2]  ){
-        	text = '';
+        	text = ' ';
         }
 
-        if ( file.relative == filesArray[3]  ) {
+        if ( file.relative == filesArray[3] ) {
         	text = text.replace(/\/\*\*\{\{ body \}\}\*\*\//, filesObject[ filesArray[1] ]);
         }	
 
@@ -63,21 +63,33 @@ gulp.task('minify-js', function() {
         console.log( String( file.contents ) );
     });
 
-    gulp.src('src/upload.main.js')
-        .pipe(rewrite())
-        .pipe(concat())
-        // .pipe(uglify())
-        .pipe(rename('upload.debug.js'))
-        .pipe(gulp.dest('dist'));
+    // debug
+    gulp.src( 'src/upload.*.js' )
+        .pipe( rewrite() )
+        .pipe( concat( 'upload.debug.js' ) )
+        .pipe( uglify() )
+        .pipe( rename( 'upload.debug.js' ) )
+        .pipe( gulp.dest('dist') );
+
+    // min
+    gulp.src( 'src/upload.*.js' )
+        .pipe( rewrite() )
+        .pipe( concat( 'upload.debug.js' ) )
+        .pipe( uglify() )
+        .pipe( rename( 'upload.min.js' ) )
+        .pipe( gulp.dest('dist') );
 });
 
 // gulp default
 gulp.task('default', ['minify-js', 'watch'], function() {
+
     console.log('the gulp entrance.');
     console.log("task start");
+
 });
 
-//监控
 gulp.task('watch', function() {
+
     gulp.watch('upload.js', ['minify-js']);
+
 });
