@@ -149,6 +149,7 @@
             var self = this;
             var xhr = self.xhr;
 
+            //  请求头参数设置
             // self.xhr.setRequestHeader("Content-type", "application/json");
 
             self.xhr.upload.addEventListener("progress", function(e) {
