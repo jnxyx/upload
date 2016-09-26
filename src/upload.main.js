@@ -105,6 +105,7 @@
                 progress: '',
                 dragElement: '',
                 dragClass: '',
+                limitNumber: 10,
                 ext: '.png,.jpg,.jpeg',
                 size: '',
                 validateCallBack: ''
@@ -134,6 +135,8 @@
 
             //初始化元素事件
             self.initEvent();
+
+            self.currentNumber = 0;
 
             //加载初始图片
             if (self.options.loadFiles.length) {
@@ -292,6 +295,12 @@
                     self.validateInfo = '文件格式不符合要求！';
                     return false;
                 }
+
+                if (self.options.limitNumber && !self.validateNumber()) {
+                    self.validateInfo = '超出上传上限！';
+                    return false;
+                }
+
             }
 
             return true;
@@ -346,6 +355,17 @@
             }
 
             if (limitExt.indexOf(ext) == -1) {
+                return false;
+            }
+
+            return true;
+        },
+
+        validateNumber: function() {
+
+            var self = this;
+
+            if (self.currentNumber > self.options.limitNumber) {
                 return false;
             }
 
@@ -413,6 +433,19 @@
                 active: active,
                 file: file
             });
+
+            if (active == 'cancle') {
+                self.currentNumber--;
+            } else {
+                self.currentNumber++;
+            }
+
+            if (self.currentNumber == self.options.limitNumber) {
+                upload.element.parentNode.style.display = 'none';
+            } else {
+                upload.element.parentNode.style.display = 'inline-block';
+            }
+            
         },
 
         getOptionsLog: function() {
