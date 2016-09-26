@@ -31,7 +31,7 @@ function rewrite() {
 
         if( file.relative == filesArray[1] ){
         	text = map[file.relative].replace(/^(\(function\(\) \{)/, '');
-        	text = text.replace(/\}\(\)\);$/, '');
+        	text = text.replace(/\}\(\)\);(\s)*$/, '');
         }
 
         filesObject[ file.relative ] = text;

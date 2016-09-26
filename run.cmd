@@ -1,0 +1,2 @@
+gulp default
+pause

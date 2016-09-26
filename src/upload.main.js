@@ -441,11 +441,11 @@
             }
 
             if (self.currentNumber == self.options.limitNumber) {
-                upload.element.parentNode.style.display = 'none';
+                self.element.parentNode.style.display = 'none';
             } else {
-                upload.element.parentNode.style.display = 'inline-block';
+                self.element.parentNode.style.display = 'inline-block';
             }
-            
+
         },
 
         getOptionsLog: function() {
