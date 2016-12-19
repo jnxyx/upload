@@ -1,7 +1,6 @@
 <?php
 
 	include "upload.class.php";
-	// include "ex.php";
 
 	$upload = new FileUpload;
 	//初始化属性
