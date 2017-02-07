@@ -10,14 +10,11 @@
  * options.dragElement      拖拽容器对象       [选填]
  * options.dragClass        拖拽样式           [选填]
  * 
+ * options.limitNumber      允许上传数量限制   [选填] 
  * options.ext              允许上传文件格式   [选填] 
  * options.size             允许上传文件大小   [选填] 
- * options.limitSize        允许上传文件个数   [选填]  --- 待开发
  * options.validateCallBack 上传文件验证失败回调   [选填]
- * 
- * options.files            当前所有文件（函数)[选填] --- 待开发
  *
- * 上传数量限制、回调展示形式
  * 
  */
  
