@@ -72,7 +72,7 @@ gulp.task('minify-js', function() {
     // min
     gulp.src( 'src/upload.*.js' )
         .pipe( rewrite() )
-        .pipe( concat( 'upload.debug.js' ) )
+        // .pipe( concat( 'upload.debug.js' ) ) // noneed
         .pipe( uglify() )
         .pipe( rename( 'upload.min.js' ) )
         .pipe( gulp.dest('dist') );
